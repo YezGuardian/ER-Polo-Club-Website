@@ -1,6 +1,7 @@
 import React from 'react';
 import { Hero } from '../components/Hero';
 import { BentoCard } from '../components/BentoGrid';
+import { Carousel } from '../components/Carousel';
 import { Award, TrendingUp, Users } from 'lucide-react';
 import { ScrollReveal } from '../components/ScrollReveal';
 
@@ -8,11 +9,12 @@ export const Academy: React.FC = () => {
   return (
     <>
       <Hero
-        title="The School of Kings."
+        title={<>Master the Game. Start Your <span className="font-serif text-[#2F3E32] dark:text-[#3B5341] italic drop-shadow-lg">Journey.</span></>}
         subtitle="Powered by Rocking Four Polo Academy. The breeding ground for the next generation of South African players."
         backgroundImage="https://static.wixstatic.com/media/da684c_6068e1f50f844bcbbe84d0d9a42044f6~mv2.jpg"
         primaryCta="Book a Lesson"
-        secondaryCta="View Fees"
+        primaryCtaLink="/contact"
+        secondaryCta=""
       />
 
       <section className="py-24 px-4 bg-background">
@@ -43,6 +45,24 @@ export const Academy: React.FC = () => {
               />
             </ScrollReveal>
           </div>
+
+          <ScrollReveal delay={0.35}>
+            <div className="mb-20">
+              <Carousel images={[
+                "/academy/academy-polo-club.jpg",
+                "/academy/boy-on-horse.jpg",
+                "/academy/boy-on-horse2.jpg",
+                "/academy/boy-on-horse3.jpg",
+                "/academy/boy-on-horse4.jpg",
+                "/academy/horse-eastrand-polo.jpg",
+                "/academy/kids-with-horse.jpg",
+                "/academy/little-polo-player.jpg",
+                "/academy/polo-chase-east-rand.jpg",
+                "/academy/polo-club-man.jpg",
+                "/academy/polo-player.jpg"
+              ]} />
+            </div>
+          </ScrollReveal>
 
           <ScrollReveal delay={0.4}>
             <div className="bg-secondary rounded-3xl p-12 text-center border border-border">

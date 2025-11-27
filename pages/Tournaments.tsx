@@ -14,9 +14,12 @@ export const Tournaments: React.FC = () => {
   return (
     <>
       <Hero
-        title="2025 Fixtures."
+        title={<>2025 <span className="font-serif text-white italic drop-shadow-lg">Fixtures.</span></>}
         subtitle="From high-goal adrenaline to the elegance of the Diamond Ladies Open."
         backgroundImage="https://static.wixstatic.com/media/da684c_641604706d6d42bb81a28531c5c560ae~mv2.png"
+        primaryCta="Start Your Journey"
+        primaryCtaLink="/contact"
+        secondaryCta=""
       />
 
       <section className="py-24 px-4 bg-background">

@@ -7,14 +7,14 @@ export const ContactPage: React.FC = () => {
   return (
     <>
       <Hero
-        title="Visit Us."
-        subtitle="75 Polo Dr, Elandsfontein AH, Kempton Park."
+        title={<><span className="font-serif text-white italic drop-shadow-lg">Visit</span> Us.</>}
+        subtitle="Experience the thrill firsthand. Join us at the heart of the Highveld's equestrian corridor."
         backgroundImage="https://static.wixstatic.com/media/da684c_1f8cbb774b324d089adf1731299897bf~mv2.jpg"
         primaryCta="Start Your Journey"
         secondaryCta="Get Directions"
       />
 
-      <div className="min-h-screen bg-background py-24 px-4">
+      <div className="min-h-screen bg-background py-12 px-4">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 h-full">
 
           {/* Left: Map */}

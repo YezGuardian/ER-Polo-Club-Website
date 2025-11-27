@@ -10,10 +10,12 @@ interface HeroProps {
   videoSrc?: string;
   showBadge?: boolean;
   primaryCta?: string;
+  primaryCtaLink?: string;
   secondaryCta?: string;
   secondaryCtaLink?: string;
   tertiaryCta?: string;
   tertiaryCtaLink?: string;
+  hideButtons?: boolean;
 }
 
 export const Hero: React.FC<HeroProps> = ({
@@ -23,10 +25,12 @@ export const Hero: React.FC<HeroProps> = ({
   videoSrc,
   showBadge = false,
   primaryCta = "Start Your Journey",
+  primaryCtaLink,
   secondaryCta = "2025 Fixtures",
   secondaryCtaLink,
   tertiaryCta,
-  tertiaryCtaLink
+  tertiaryCtaLink,
+  hideButtons = false
 }) => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
@@ -90,105 +94,128 @@ export const Hero: React.FC<HeroProps> = ({
         </motion.div>
 
         {/* Right Column: Actions & Status */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
-          className="flex flex-col items-start md:items-end gap-6 w-full md:w-auto"
-        >
-          {/* Badge */}
-          {showBadge && (
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-foreground/5 border border-foreground/10 backdrop-blur-md shadow-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              <span className="text-xs uppercase tracking-widest text-foreground font-medium">Season 2025 Open</span>
-            </div>
-          )}
-
-          {/* Floating Pill Menu */}
-          <div className="inline-flex flex-col sm:flex-row items-stretch sm:items-center p-1.5 bg-background/50 backdrop-blur-xl border border-foreground/10 rounded-3xl sm:rounded-full shadow-2xl shadow-black/10 dark:shadow-black/50 gap-2 sm:gap-0">
-            {primaryCta === "Start Your Journey" ? (
-              <a
-                href="#contact"
-                className="px-8 py-3 bg-[#2F3E32] text-white dark:bg-[#3B5341] dark:text-white rounded-full text-sm font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 whitespace-nowrap"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                {primaryCta}
-              </a>
-            ) : (
-              <button className="px-8 py-3 bg-[#2F3E32] text-white dark:bg-[#3B5341] dark:text-white rounded-full text-sm font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 whitespace-nowrap">
-                {primaryCta}
-              </button>
+        {!hideButtons && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+            className="flex flex-col items-start md:items-end gap-6 w-full md:w-auto"
+          >
+            {/* Badge */}
+            {showBadge && (
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-foreground/5 border border-foreground/10 backdrop-blur-md shadow-sm">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                <span className="text-xs uppercase tracking-widest text-foreground font-medium">Season 2025 Open</span>
+              </div>
             )}
-            <div className="flex items-center justify-center gap-1 sm:gap-2 sm:ml-2">
-              {secondaryCtaLink ? (
-                secondaryCtaLink.startsWith('http') ? (
+
+            {/* Floating Pill Menu */}
+            <div className="inline-flex flex-col sm:flex-row items-stretch sm:items-center p-1.5 bg-background/50 backdrop-blur-xl border border-foreground/10 rounded-3xl sm:rounded-full shadow-2xl shadow-black/10 dark:shadow-black/50 gap-2 sm:gap-0">
+              {primaryCtaLink ? (
+                primaryCtaLink.startsWith('http') ? (
                   <a
-                    href={secondaryCtaLink}
+                    href={primaryCtaLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 sm:px-6 sm:py-3 text-foreground rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors flex items-center gap-2 whitespace-nowrap"
+                    className="px-8 py-3 bg-[#2F3E32] text-white dark:bg-[#3B5341] dark:text-white rounded-full text-sm font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 whitespace-nowrap"
                   >
-                    {secondaryCta} <ChevronRight size={16} />
+                    {primaryCta}
                   </a>
                 ) : (
                   <Link
-                    to={secondaryCtaLink}
-                    className="px-4 py-2 sm:px-6 sm:py-3 text-foreground rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors flex items-center gap-2 whitespace-nowrap"
+                    to={primaryCtaLink}
+                    className="px-8 py-3 bg-[#2F3E32] text-white dark:bg-[#3B5341] dark:text-white rounded-full text-sm font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 whitespace-nowrap"
                   >
-                    {secondaryCta} <ChevronRight size={16} />
+                    {primaryCta}
                   </Link>
                 )
-              ) : secondaryCta === "Get Directions" ? (
+              ) : primaryCta === "Start Your Journey" ? (
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=East+Rand+Polo+Club"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 sm:px-6 sm:py-3 text-foreground rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors flex items-center gap-2 whitespace-nowrap"
+                  href="#contact"
+                  className="px-8 py-3 bg-[#2F3E32] text-white dark:bg-[#3B5341] dark:text-white rounded-full text-sm font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 whitespace-nowrap"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                 >
-                  {secondaryCta} <ChevronRight size={16} />
+                  {primaryCta}
                 </a>
               ) : (
-                <button className="px-4 py-2 sm:px-6 sm:py-3 text-foreground rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors flex items-center gap-2 whitespace-nowrap">
-                  {secondaryCta} <ChevronRight size={16} />
+                <button className="px-8 py-3 bg-[#2F3E32] text-white dark:bg-[#3B5341] dark:text-white rounded-full text-sm font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 whitespace-nowrap">
+                  {primaryCta}
                 </button>
               )}
-              {videoSrc && (
-                <>
-                  <div className="hidden sm:block w-px h-6 bg-foreground/10"></div>
-                  {tertiaryCtaLink ? (
-                    tertiaryCtaLink.startsWith('http') ? (
+
+              {secondaryCta && (
+                <div className="flex items-center justify-center gap-1 sm:gap-2 sm:ml-2">
+                  {secondaryCtaLink ? (
+                    secondaryCtaLink.startsWith('http') ? (
                       <a
-                        href={tertiaryCtaLink}
+                        href={secondaryCtaLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hidden sm:flex px-6 py-3 text-foreground rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors items-center gap-2 whitespace-nowrap"
+                        className="px-4 py-2 sm:px-6 sm:py-3 text-foreground rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors flex items-center gap-2 whitespace-nowrap"
                       >
-                        {tertiaryCta || "Watch Film"}
+                        {secondaryCta} <ChevronRight size={16} />
                       </a>
                     ) : (
                       <Link
-                        to={tertiaryCtaLink}
-                        className="hidden sm:flex px-6 py-3 text-foreground rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors items-center gap-2 whitespace-nowrap"
+                        to={secondaryCtaLink}
+                        className="px-4 py-2 sm:px-6 sm:py-3 text-foreground rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors flex items-center gap-2 whitespace-nowrap"
                       >
-                        {tertiaryCta || "Watch Film"}
+                        {secondaryCta} <ChevronRight size={16} />
                       </Link>
                     )
+                  ) : secondaryCta === "Get Directions" ? (
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=East+Rand+Polo+Club"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 sm:px-6 sm:py-3 text-foreground rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors flex items-center gap-2 whitespace-nowrap"
+                    >
+                      {secondaryCta} <ChevronRight size={16} />
+                    </a>
                   ) : (
-                    <button className="hidden sm:flex px-6 py-3 text-foreground rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors items-center gap-2 whitespace-nowrap">
-                      <Play size={16} fill="currentColor" /> {tertiaryCta || "Watch Film"}
+                    <button className="px-4 py-2 sm:px-6 sm:py-3 text-foreground rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors flex items-center gap-2 whitespace-nowrap">
+                      {secondaryCta} <ChevronRight size={16} />
                     </button>
                   )}
-                </>
+                  {videoSrc && (
+                    <>
+                      <div className="hidden sm:block w-px h-6 bg-foreground/10"></div>
+                      {tertiaryCtaLink ? (
+                        tertiaryCtaLink.startsWith('http') ? (
+                          <a
+                            href={tertiaryCtaLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hidden sm:flex px-6 py-3 text-foreground rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors items-center gap-2 whitespace-nowrap"
+                          >
+                            {tertiaryCta || "Watch Film"}
+                          </a>
+                        ) : (
+                          <Link
+                            to={tertiaryCtaLink}
+                            className="hidden sm:flex px-6 py-3 text-foreground rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors items-center gap-2 whitespace-nowrap"
+                          >
+                            {tertiaryCta || "Watch Film"}
+                          </Link>
+                        )
+                      ) : (
+                        <button className="hidden sm:flex px-6 py-3 text-foreground rounded-full text-sm font-medium hover:bg-foreground/5 transition-colors items-center gap-2 whitespace-nowrap">
+                          <Play size={16} fill="currentColor" /> {tertiaryCta || "Watch Film"}
+                        </button>
+                      )}
+                    </>
+                  )}
+                </div>
               )}
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        )}
 
       </div>
     </section>

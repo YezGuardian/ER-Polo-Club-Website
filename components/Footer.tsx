@@ -54,7 +54,7 @@ export const Footer: React.FC = () => {
               <span className="text-md font-bold tracking-wide text-foreground">EAST RAND POLO</span>
             </Link>
             <p className="text-muted text-sm leading-relaxed max-w-xs">
-              Adaptive polo training and events that learns your rhythm. Go anywhere, effortlessly, with journeys crafted just for you.
+              The East Rand’s premier equestrian sanctuary. A legacy of sporting excellence, community, and the timeless thrill of the game since 1942.
             </p>
             <div className="flex gap-4">
               <a href="https://www.facebook.com/eastrandpoloclub/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-foreground/10 flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-all">
