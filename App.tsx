@@ -10,6 +10,8 @@ import { Tournaments } from './pages/Tournaments';
 import { Venue } from './pages/Venue';
 import { Gallery } from './pages/Gallery';
 import { ContactPage } from './pages/ContactPage';
+import { TermsOfService } from './pages/TermsOfService';
+import { PrivacyPolicy } from './pages/PrivacyPolicy';
 
 // Scroll to top on route change
 const ScrollToTop = () => {
@@ -60,6 +62,8 @@ const App: React.FC = () => {
             <Route path="/venue" element={<Venue />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
           </Routes>
         </main>
         <Footer />

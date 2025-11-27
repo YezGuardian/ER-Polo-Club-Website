@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { FAQItem } from '../types';
+import { ScrollReveal } from './ScrollReveal';
 
 const faqData: FAQItem[] = [
   {
@@ -31,45 +33,48 @@ export const FAQ: React.FC = () => {
   return (
     <section className="py-24 px-4 bg-secondary transition-colors duration-300">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
-        
+
         {/* Left Side: Header */}
         <div className="lg:col-span-4">
-          <h2 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-foreground">Questions.</h2>
-          <p className="text-muted text-lg">
-            Find answers to common questions about East Rand Polo Club, our adaptive training, and how we craft your perfect equestrian journey.
-          </p>
-          <button className="mt-8 px-6 py-3 rounded-full border border-foreground/20 text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors">
-            Get in touch
-          </button>
+          <ScrollReveal>
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-foreground">Questions.</h2>
+            <p className="text-muted text-lg">
+              Find answers to common questions about East Rand Polo Club, our adaptive training, and how we craft your perfect equestrian journey.
+            </p>
+            <Link to="/contact" className="inline-block mt-8 px-6 py-3 rounded-full border border-foreground/20 text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors">
+              Get in touch
+            </Link>
+          </ScrollReveal>
         </div>
 
         {/* Right Side: Accordion */}
         <div className="lg:col-span-8 space-y-3">
           {faqData.map((item, index) => (
-            <div 
-              key={index} 
-              className={`bg-card rounded-2xl overflow-hidden transition-all duration-300 border ${openIndex === index ? 'border-foreground/20' : 'border-cardBorder'}`}
-            >
-              <button 
-                onClick={() => toggleFAQ(index)}
-                className="w-full flex items-center justify-between p-6 text-left focus:outline-none"
+            <ScrollReveal key={index} delay={index * 0.1}>
+              <div
+                className={`bg-card rounded-2xl overflow-hidden transition-all duration-300 border ${openIndex === index ? 'border-foreground/20' : 'border-cardBorder'}`}
               >
-                <span className="text-lg font-semibold text-card-foreground">{item.question}</span>
-                {openIndex === index ? (
-                  <Minus className="text-foreground w-5 h-5 flex-shrink-0" />
-                ) : (
-                  <Plus className="text-muted w-5 h-5 flex-shrink-0" />
-                )}
-              </button>
-              
-              <div 
-                className={`transition-all duration-300 ease-in-out overflow-hidden ${openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
-              >
-                <div className="p-6 pt-0 text-muted leading-relaxed">
-                  {item.answer}
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className="w-full flex items-center justify-between p-6 text-left focus:outline-none"
+                >
+                  <span className="text-lg font-semibold text-card-foreground">{item.question}</span>
+                  {openIndex === index ? (
+                    <Minus className="text-foreground w-5 h-5 flex-shrink-0" />
+                  ) : (
+                    <Plus className="text-muted w-5 h-5 flex-shrink-0" />
+                  )}
+                </button>
+
+                <div
+                  className={`transition-all duration-300 ease-in-out overflow-hidden ${openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+                >
+                  <div className="p-6 pt-0 text-muted leading-relaxed">
+                    {item.answer}
+                  </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
 

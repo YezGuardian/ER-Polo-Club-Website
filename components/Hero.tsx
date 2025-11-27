@@ -28,6 +28,16 @@ export const Hero: React.FC<HeroProps> = ({
   tertiaryCtaLink
 }) => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [deferredVideoSrc, setDeferredVideoSrc] = useState<string | undefined>(undefined);
+
+  React.useEffect(() => {
+    // Delay video loading slightly to prioritize LCP (Largest Contentful Paint)
+    const timer = setTimeout(() => {
+      setDeferredVideoSrc(videoSrc);
+    }, 1500); // 1.5s delay to ensure site is fully interactive first
+
+    return () => clearTimeout(timer);
+  }, [videoSrc]);
 
   return (
     <section className="relative h-screen w-full overflow-hidden flex flex-col justify-center bg-background transition-colors duration-300">
@@ -41,9 +51,9 @@ export const Hero: React.FC<HeroProps> = ({
         />
 
         {/* Video Background - Only renders if videoSrc provided */}
-        {videoSrc && (
+        {deferredVideoSrc && (
           <video
-            src={videoSrc}
+            src={deferredVideoSrc}
             autoPlay
             loop
             muted
