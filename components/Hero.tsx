@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronRight, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 interface HeroProps {
   title?: React.ReactNode;
@@ -28,16 +29,6 @@ export const Hero: React.FC<HeroProps> = ({
   tertiaryCtaLink
 }) => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [deferredVideoSrc, setDeferredVideoSrc] = useState<string | undefined>(undefined);
-
-  React.useEffect(() => {
-    // Delay video loading slightly to prioritize LCP (Largest Contentful Paint)
-    const timer = setTimeout(() => {
-      setDeferredVideoSrc(videoSrc);
-    }, 1500); // 1.5s delay to ensure site is fully interactive first
-
-    return () => clearTimeout(timer);
-  }, [videoSrc]);
 
   return (
     <section className="relative h-screen w-full overflow-hidden flex flex-col justify-center bg-background transition-colors duration-300">
@@ -51,14 +42,14 @@ export const Hero: React.FC<HeroProps> = ({
         />
 
         {/* Video Background - Only renders if videoSrc provided */}
-        {deferredVideoSrc && (
+        {videoSrc && (
           <video
-            src={deferredVideoSrc}
+            src={videoSrc}
             autoPlay
             loop
             muted
             playsInline
-            onLoadedData={() => setIsVideoLoaded(true)}
+            onCanPlay={() => setIsVideoLoaded(true)}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${isVideoLoaded ? 'opacity-100' : 'opacity-0'
               }`}
           />
@@ -78,12 +69,17 @@ export const Hero: React.FC<HeroProps> = ({
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 mt-12 md:mt-16 flex flex-col md:flex-row items-start md:items-end justify-between gap-10 md:gap-4">
 
         {/* Left Column: Typography */}
-        <div className="max-w-3xl md:w-2/3">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+          className="max-w-3xl md:w-2/3"
+        >
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 leading-[1.1] text-foreground">
             {title || (
               <>
                 Heritage. <br className="hidden md:block" />
-                <span className="font-serif text-[#2F3E32] dark:text-[#3B5341] italic">Adrenaline.</span> Elegance.
+                <span className="font-serif text-[#2F3E32] dark:text-[#3B5341] italic drop-shadow-lg">Adrenaline.</span> Elegance.
               </>
             )}
           </h1>
@@ -91,10 +87,15 @@ export const Hero: React.FC<HeroProps> = ({
           <p className="text-lg md:text-xl text-muted-foreground font-light max-w-xl leading-relaxed">
             {subtitle || "The East Rand’s premier equestrian sanctuary. Over 80 years of sporting excellence, situated in the heart of the Highveld’s equestrian corridor."}
           </p>
-        </div>
+        </motion.div>
 
         {/* Right Column: Actions & Status */}
-        <div className="flex flex-col items-start md:items-end gap-6 w-full md:w-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+          className="flex flex-col items-start md:items-end gap-6 w-full md:w-auto"
+        >
           {/* Badge */}
           {showBadge && (
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-foreground/5 border border-foreground/10 backdrop-blur-md shadow-sm">
@@ -111,7 +112,7 @@ export const Hero: React.FC<HeroProps> = ({
             {primaryCta === "Start Your Journey" ? (
               <a
                 href="#contact"
-                className="px-8 py-3 bg-foreground text-background rounded-full text-sm font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 whitespace-nowrap"
+                className="px-8 py-3 bg-[#2F3E32] text-white dark:bg-[#3B5341] dark:text-white rounded-full text-sm font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 whitespace-nowrap"
                 onClick={(e) => {
                   e.preventDefault();
                   document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -120,7 +121,7 @@ export const Hero: React.FC<HeroProps> = ({
                 {primaryCta}
               </a>
             ) : (
-              <button className="px-8 py-3 bg-foreground text-background rounded-full text-sm font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 whitespace-nowrap">
+              <button className="px-8 py-3 bg-[#2F3E32] text-white dark:bg-[#3B5341] dark:text-white rounded-full text-sm font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 whitespace-nowrap">
                 {primaryCta}
               </button>
             )}
@@ -187,7 +188,7 @@ export const Hero: React.FC<HeroProps> = ({
               )}
             </div>
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </section>

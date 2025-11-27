@@ -112,7 +112,7 @@ export const Footer: React.FC = () => {
           {/* Scroll to Top Arrow - Centered */}
           <button
             onClick={scrollToTop}
-            className={`absolute left-1/2 -translate-x-1/2 -top-4 p-3 rounded-full bg-foreground text-background shadow-lg hover:scale-110 transition-all duration-500 ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
+            className={`absolute left-1/2 -translate-x-1/2 -top-4 p-3 rounded-full bg-[#2F3E32] text-white dark:bg-[#3B5341] dark:text-white shadow-lg hover:scale-110 transition-all duration-500 ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
             aria-label="Scroll to top"
           >
             <ArrowUp size={20} />

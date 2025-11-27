@@ -9,6 +9,7 @@ import { Academy } from './pages/Academy';
 import { Tournaments } from './pages/Tournaments';
 import { Venue } from './pages/Venue';
 import { Gallery } from './pages/Gallery';
+import { Heritage } from './pages/Heritage';
 import { ContactPage } from './pages/ContactPage';
 import { TermsOfService } from './pages/TermsOfService';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
@@ -61,6 +62,7 @@ const App: React.FC = () => {
             <Route path="/fixtures" element={<Tournaments />} />
             <Route path="/venue" element={<Venue />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/heritage" element={<Heritage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />

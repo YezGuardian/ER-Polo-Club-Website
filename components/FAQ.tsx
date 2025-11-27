@@ -41,7 +41,7 @@ export const FAQ: React.FC = () => {
             <p className="text-muted text-lg">
               Find answers to common questions about East Rand Polo Club, our adaptive training, and how we craft your perfect equestrian journey.
             </p>
-            <Link to="/contact" className="inline-block mt-8 px-6 py-3 rounded-full border border-foreground/20 text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors">
+            <Link to="/contact" className="inline-block mt-8 px-6 py-3 rounded-full border border-foreground/20 text-sm font-medium text-foreground hover:bg-[#2F3E32] hover:text-white dark:hover:bg-[#3B5341] dark:hover:text-white transition-colors">
               Get in touch
             </Link>
           </ScrollReveal>

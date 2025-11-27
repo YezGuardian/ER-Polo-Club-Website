@@ -57,7 +57,7 @@ export const Contact: React.FC<ContactProps> = ({ title = "Get in touch." }) => 
                   ></textarea>
                 </div>
 
-                <button type="button" className="w-full bg-black text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors mt-2">
+                <button type="button" className="w-full bg-[#2F3E32] text-white dark:bg-[#3B5341] dark:text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-colors mt-2">
                   Send Enquiry <Send size={16} />
                 </button>
 

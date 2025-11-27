@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, Sun, Moon } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 interface NavbarProps {
   isDarkMode: boolean;
@@ -45,7 +46,12 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 flex justify-between items-center bg-background/80 backdrop-blur-md border-b border-border transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: isVisible ? 0 : -100 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 flex justify-between items-center bg-background/80 backdrop-blur-md border-b border-border`}
+      >
         <Link to="/" className="flex items-center gap-3" onClick={closeMobileMenu}>
           <img
             src="https://static.wixstatic.com/media/da684c_3f561b216d464f31b80962d58688d431~mv2.png"
@@ -61,6 +67,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
           <Link to="/fixtures" className={linkClasses('/fixtures')}>Fixtures</Link>
           <Link to="/venue" className={linkClasses('/venue')}>Venue</Link>
           <Link to="/gallery" className={linkClasses('/gallery')}>Gallery</Link>
+          <Link to="/heritage" className={linkClasses('/heritage')}>Heritage</Link>
           <Link to="/contact" className={linkClasses('/contact')}>Contact</Link>
         </div>
 
@@ -94,7 +101,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
           </button>
 
 
-          <Link to="/contact" className="hidden lg:block bg-foreground text-background px-5 py-2.5 rounded-full text-sm font-semibold hover:opacity-80 transition-all duration-300">
+          <Link to="/contact" className="hidden lg:block bg-[#2F3E32] text-white dark:bg-[#3B5341] dark:text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:opacity-80 transition-all duration-300">
             Book a Lesson
           </Link>
           <button
@@ -104,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
             <Menu size={24} />
           </button>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Mobile Menu Overlay */}
       <div className={`fixed inset-0 z-40 bg-background/95 backdrop-blur-xl transition-all duration-300 lg:hidden flex flex-col items-center justify-center gap-8 ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
@@ -114,6 +121,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
           <Link to="/fixtures" className="hover:text-muted transition-colors" onClick={closeMobileMenu}>Fixtures</Link>
           <Link to="/venue" className="hover:text-muted transition-colors" onClick={closeMobileMenu}>Venue</Link>
           <Link to="/gallery" className="hover:text-muted transition-colors" onClick={closeMobileMenu}>Gallery</Link>
+          <Link to="/heritage" className="hover:text-muted transition-colors" onClick={closeMobileMenu}>Heritage</Link>
           <Link to="/contact" className="hover:text-muted transition-colors" onClick={closeMobileMenu}>Contact</Link>
           <Link to="/contact" className="bg-foreground text-background px-8 py-3 rounded-full font-semibold hover:opacity-90 transition-all mt-4" onClick={closeMobileMenu}>
             Book a Lesson

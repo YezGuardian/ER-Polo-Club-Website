@@ -6,26 +6,26 @@ export const Testimonials: React.FC = () => {
     const testimonials = [
         {
             name: "Shlobo Bukhosi Moyo",
-            role: "",
+            role: "6 reviews",
             avatar: "/east-rand-review-1.png",
             rating: 5,
             text: "I had a good time here. Superb place and calm beautiful people 👍. Had an art showcase with Restless Polo 🔥🔥🔥. Greatest time ever. Thankyou",
             featured: false
         },
         {
-            name: "Zanele Mkhize",
-            role: "",
+            name: "Andres F. Perez",
+            role: "Local Guide · 116 reviews",
             avatar: "/east-rand-review-2.png",
             rating: 5,
-            text: "A beautiful place to be on a Sunday afternoon. The polo match was exciting and the atmosphere was electric. Highly recommended for a family outing.",
+            text: "This area is the mecca of polo in Gauteng, the fields are always up to standards. really a great place to play here, there is a polo School just across the road at rocking Four polo club, with springbok players such as the Evans brothers will take your level of polo higher.",
             featured: true
         },
         {
-            name: "Gareth Evans",
-            role: "",
+            name: "Ryan Nuss",
+            role: "Local Guide · 112 reviews",
             avatar: "/east-rand-review-3.png",
             rating: 5,
-            text: "World class facilities and coaching. The team at East Rand Polo Club are passionate and dedicated to the sport. A true gem in Gauteng.",
+            text: "A really stunning venue. Large open fields that get stunning sunsets.",
             featured: false
         }
     ];
@@ -104,7 +104,7 @@ export const Testimonials: React.FC = () => {
                             href="https://share.google/z6UiAIJleNxrd5CPw"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-8 py-3 bg-foreground text-background rounded-full font-semibold hover:opacity-90 transition-opacity whitespace-nowrap"
+                            className="px-8 py-3 bg-[#2F3E32] text-white dark:bg-[#3B5341] dark:text-white rounded-full font-semibold hover:opacity-90 transition-opacity whitespace-nowrap"
                         >
                             Read more reviews
                         </a>
