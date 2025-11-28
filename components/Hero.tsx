@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronRight, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -33,6 +33,25 @@ export const Hero: React.FC<HeroProps> = ({
   hideButtons = false
 }) => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Ensure video plays when component mounts or videoSrc changes
+    if (videoRef.current && videoSrc) {
+      videoRef.current.defaultMuted = true; // Crucial for autoplay policy
+      videoRef.current.muted = true;
+
+      const playVideo = async () => {
+        try {
+          await videoRef.current?.play();
+        } catch (err) {
+          console.warn("Video autoplay failed:", err);
+        }
+      };
+
+      playVideo();
+    }
+  }, [videoSrc]);
 
   return (
     <section className="relative h-screen w-full overflow-hidden flex flex-col justify-center bg-background transition-colors duration-300">
@@ -42,18 +61,19 @@ export const Hero: React.FC<HeroProps> = ({
         <img
           src={backgroundImage}
           alt="Hero Background"
-          className="absolute inset-0 w-full h-full object-cover"
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${isVideoLoaded ? 'opacity-0' : 'opacity-100'}`}
         />
 
         {/* Video Background - Only renders if videoSrc provided */}
         {videoSrc && (
           <video
+            ref={videoRef}
             src={videoSrc}
             autoPlay
             loop
             muted
             playsInline
-            onCanPlay={() => setIsVideoLoaded(true)}
+            onPlaying={() => setIsVideoLoaded(true)}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${isVideoLoaded ? 'opacity-100' : 'opacity-0'
               }`}
           />
