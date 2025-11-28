@@ -118,7 +118,7 @@ export const BentoCard: React.FC<ServiceCardProps> = ({ title, description, icon
 
 export const HomeBentoGrid: React.FC = () => {
   return (
-    <section className="py-24 px-4 bg-background transition-colors duration-300">
+    <section className="pt-8 pb-24 px-4 bg-background transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
         <ScrollReveal>
           <div className="mb-16">
