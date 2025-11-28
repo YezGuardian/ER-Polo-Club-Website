@@ -34,23 +34,65 @@ export const Hero: React.FC<HeroProps> = ({
 }) => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const playAttemptedRef = useRef(false);
 
   useEffect(() => {
-    // Ensure video plays when component mounts or videoSrc changes
-    if (videoRef.current && videoSrc) {
-      videoRef.current.defaultMuted = true; // Crucial for autoplay policy
-      videoRef.current.muted = true;
+    if (!videoRef.current || !videoSrc) return;
 
-      const playVideo = async () => {
-        try {
-          await videoRef.current?.play();
-        } catch (err) {
-          console.warn("Video autoplay failed:", err);
-        }
-      };
+    const video = videoRef.current;
+    video.muted = true;
+    video.defaultMuted = true;
 
-      playVideo();
-    }
+    const attemptPlay = async () => {
+      try {
+        await video.play();
+        playAttemptedRef.current = true;
+        console.log('Video playback started successfully');
+      } catch (err) {
+        console.warn("Video autoplay attempt failed:", err);
+      }
+    };
+
+    // Attempt 1: When metadata is loaded
+    const handleLoadedMetadata = () => {
+      if (!playAttemptedRef.current) {
+        setTimeout(() => attemptPlay(), 100);
+      }
+    };
+
+    // Attempt 2: When enough data is loaded
+    const handleCanPlay = () => {
+      if (!playAttemptedRef.current) {
+        setTimeout(() => attemptPlay(), 200);
+      }
+    };
+
+    // Attempt 3: Fallback after 1.5 seconds
+    const fallbackTimeout = setTimeout(() => {
+      if (!playAttemptedRef.current) {
+        console.log('Fallback play attempt...');
+        attemptPlay();
+      }
+    }, 1500);
+
+    // Attempt 4: Final fallback after 3 seconds
+    const finalFallbackTimeout = setTimeout(() => {
+      if (!playAttemptedRef.current) {
+        console.log('Final fallback play attempt...');
+        attemptPlay();
+      }
+    }, 3000);
+
+    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+    video.addEventListener('canplay', handleCanPlay);
+
+    return () => {
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      video.removeEventListener('canplay', handleCanPlay);
+      clearTimeout(fallbackTimeout);
+      clearTimeout(finalFallbackTimeout);
+      playAttemptedRef.current = false;
+    };
   }, [videoSrc]);
 
   return (
@@ -73,7 +115,13 @@ export const Hero: React.FC<HeroProps> = ({
             loop
             muted
             playsInline
-            onPlaying={() => setIsVideoLoaded(true)}
+            preload="auto"
+            onPlaying={() => {
+              setIsVideoLoaded(true);
+              console.log('Video is now playing');
+            }}
+            onWaiting={() => console.log('Video waiting for data')}
+            onStalled={() => console.log('Video stalled')}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${isVideoLoaded ? 'opacity-100' : 'opacity-0'
               }`}
           />
